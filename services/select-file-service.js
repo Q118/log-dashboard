@@ -3,7 +3,7 @@ const path = require('path');
 const { path } = require("../app");
 
 function getDirectoryContents(files, currentDir, query) {
-    const data = [];
+    let data = [];
     files.forEach(file => {
         if (isDirectory(file)) {
             data.push({
@@ -28,7 +28,13 @@ function isDirectory(currentDir, file) {
 }
 
 function readDir(currentDir, res, query) {
-    
+    fs.readdir(currentDir, (err, files) => {
+        let directoryContents = [];
+        if (!err) {
+            directoryContents = getDirectoryContents(files, currentDir, query);
+        }
+        res.json(directoryContents);
+    });
 }
 
 exports.get = (req, res) => {
