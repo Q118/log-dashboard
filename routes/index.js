@@ -9,7 +9,7 @@ const { body } = require("express-validator");
 router.get("/", (req, res, next) => {
     res.render("index", {
         title: "Log Dashboard",
-        logFIle: req.query.logFile
+        logFile: req.query.logFile
         // referenced in index.ejs in value attribute of input
     });
 });

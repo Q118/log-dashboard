@@ -10,3 +10,6 @@ Follow the <b>Select File</b> link and open the <b>log-generator>sample.log</b> 
 ```
 $ express --view=ejs log-dashboard
 ```
+
+
+/Users/srothman/Desktop/sP/log-dashboard-with-node-and-express/log-dashboard-node-express/log-generator/sample.log
