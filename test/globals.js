@@ -11,7 +11,7 @@ const dot = require('dot-object');
 const packageFile = require("../package.json")
 
 const temp_app = fs.readFileSync(path.join(process.cwd(), 'app.js'), 'utf8');
-const overwritten = temp_app.replace(/app\.listen\([\s\S]*\);?/g, 'app.listen(3000);')
+const overwritten = temp_app.replace(/app\.listen\([\s\S]*\);?/g, 'app.listen(3001);')
 fs.writeFileSync(path.join(process.cwd(), 'temp_app.js'), overwritten , 'utf8')
 const appModule = rewire(path.join(process.cwd(), 'temp_app.js'));
 fs.unlinkSync(path.join(process.cwd(), 'temp_app.js'))
