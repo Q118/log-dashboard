@@ -1,24 +1,24 @@
 <%- include("header") %>
 
-  <div class="container">
-      <div class="panel panel-default">
-          <div class="panel-heading">
-              Log Viewer
-          </div>
-          <div class="panel-body" id="log-window">
-              No Logs to show
-          </div>
-      </div>
-    <h1><%= title %></h1>
-    <a href="/select-file">Select File</a>
-    <br>
-    <a href="/settings">Settings</a>
-  </div>
-  
-  <input id="logFilePath" value="<%= logFile %>" hidden>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Log Viewer
+            </div>
+            <div class="panel-body" id="log-window">
+                No Logs to show
+            </div>
+        </div>
+        <h1>
+            <%= title %>
+        </h1>
+        <a href="/select-file">Select File</a>
+        <br>
+        <a href="/settings">Settings</a>
+    </div>
 
-  <script src="./javascripts/log-viewer.js"></script>
+    <input id="logFilePath" value="<%= logFile %>" hidden>
 
-<%- include("footer") %>
+    <script src="./javascripts/log-viewer.js"></script>
 
-
+    <%- include("footer") %>
