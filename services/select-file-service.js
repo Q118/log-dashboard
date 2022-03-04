@@ -1,7 +1,13 @@
+const fs = require('fs');
+const path = require('path');
+const { path } = require("../app");
+
 function getDirectoryContents(files, currentDir, query) {
 }
 
 function isDirectory(currentDir, file) {
+    const fileInfo = fs.statSync(path.join(currentDir, file));
+    return fileInfo.isDirectory();
 }
 
 function readDir(currentDir, res, query) {
