@@ -3,6 +3,23 @@ const path = require('path');
 const { path } = require("../app");
 
 function getDirectoryContents(files, currentDir, query) {
+    const data = [];
+    files.forEach(file => {
+        if (isDirectory(file)) {
+            data.push({
+                name: file,
+                isDirectory: true,
+                path: path.join(query, file)
+            });
+        } else {
+            data.push({
+                name: file,
+                isDirectory: false,
+                path: path.join(query, file, currentDir)
+            });
+        }
+    });
+    return data;
 }
 
 function isDirectory(currentDir, file) {
@@ -11,6 +28,7 @@ function isDirectory(currentDir, file) {
 }
 
 function readDir(currentDir, res, query) {
+    
 }
 
 exports.get = (req, res) => {
