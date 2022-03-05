@@ -8,6 +8,7 @@ const debug = require("debug")("log-dashboard:server");
 const http = require("http");
 const WebSocket = require("ws");
 const fs = require("fs");
+const getSettings = require("../services/settings-service").getSettings;
 
 /**
  * Get port from environment and store in Express.
@@ -31,21 +32,24 @@ server.on("listening", onListening);
 // listener for the websocket connection event 
 wss.on("connection", (ws) => {
     //listener for the websocket message event
-    ws.on("message",  (filePath) => {
+    ws.on("message", (filePath) => {
         fs.watch(filePath, () => {
             // wrap with watch to watch for changes on the log file
-            fs.createReadStream(filePath).on("data",  (chunk) => {
+            fs.createReadStream(filePath).on("data", (chunk) => {
                 // convert the chunk buffer to string
                 let logsArr = chunk.toString().split("\n");
+                const settings = getSettings();
+                if (settings.filter) {
+                    // exclude log entries in logsArr that include the value of settings.filter then assign this back to logsArr
+                    logsArr = logsArr.filter(line => !line.includes(settings.filter))
+                    //^ check if the filter string settings.filter is found in the log entry line.
+                }
                 let logStr = logsArr.reverse().join("\n");
                 // ^reverse the array, convert to string and join with new line
                 ws.send(logStr);
                 // ^send the formatted logs back to the client
             });
         });
-
-
-
     });
 });
 
@@ -53,7 +57,6 @@ wss.on("connection", (ws) => {
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
     const port = parseInt(val, 10);
 
