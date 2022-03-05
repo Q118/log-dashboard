@@ -2,11 +2,13 @@ const connection = new WebSocket("ws://localhost:3000");
 
 const logWindow = document.querySelector("#log-window");
 
-const filePath = document.getElementById("logFilePath");
+const filePath = document.getElementById("logFilePath").value;
 
 connection.onopen = () => {
-    filePath.value ? connection.send(filePath.value) : connection.send("Hello from the client!");
-};
+    if (filePath) {
+      connection.send(filePath)
+    }
+  }
 
 
 connection.onmessage = (event) => {
@@ -15,5 +17,4 @@ connection.onmessage = (event) => {
     // const logs = e.data.replace(/\n/g, "<hr>");
     const logs = event.data.split("\n").join("<hr>");
     logWindow.innerHTML = logs;
-    console.log(logs)
 };
